@@ -16,6 +16,13 @@
  Includes contriutions by 18sas
  Copyright Reserved -- At least share with credit if you do
 *********** Latest Changes **************
+**** TheStatusAddict Version 0.1 ****
+# 2019-01-19 - Piggybacking on all of the awesome work done by the original creators of this
+#              script and all of the other contributors to utilize credit calculation service that I am developing
+#              that is intended to offer more robust support for Elite Qualifying points/miles.
+#              Elite qualfying is used in the generic sense, not in the AA specific vernacular.
+#              All major airlines/alliances are intended to be supported.
+#              All suggestions and code fixes/improvements welcome.
 **** Version 0.28 ****
 # 2018-01-04 Edited by powerivq (Fix DL/AA and add AS/VX support)
 # 2017-11-27 Edited by seththeriault (Changes for Delta to address the BE/Main Cabin and C+/PS issues)
