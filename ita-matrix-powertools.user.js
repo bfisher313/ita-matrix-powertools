@@ -2,7 +2,7 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.007
+// @version 0.50.1.008
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -3782,10 +3782,11 @@ function bindLinkClicks(){
   }
   if (mptUsersettings["enableInlinemode"]!=1){
       linkid = links.length - 1;
-  }  
-  links[linkid].onclick = function () {
-      //BPFTEST - I THINK the idea was that wheretocredit would be the very last one
-     links[linkid-1].onclick = null;
+  }
+  //BPFTEST - changes all of the link references to linkid-1 for wheretocredit, because I believe that previously,
+  //          it was always expected to be the last one in the list
+  links[linkid-1].onclick = function () {
+      links[linkid-1].onclick = null;
      openWheretocredit(links[linkid-1]);
   };
   //BPFTEST - Add open for flightcreditcalculator
