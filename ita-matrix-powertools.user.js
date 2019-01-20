@@ -2,7 +2,7 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.006
+// @version 0.50.1.007
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -3637,8 +3637,7 @@ function printWheretocredit() {
   }
   
   var links = container.getElementsByTagName('a');
-  //BPFTEST - I THINK that now we want this to be the 2nd to last link
-  var link = links[links.length - 2];
+  var link = links[links.length - 1];
   link.target = '_self';
   link.innerHTML = 'Calculate miles with wheretocredit.com';
 }
