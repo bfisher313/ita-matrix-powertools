@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name ITA-Matrix-Powertools
-// @namespace https://github.com/SteppoFF/ita-matrix-powertools
+// @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.001
+// @version 0.50.1.002
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -13,7 +13,7 @@
 /*
  Written by paul21, Steppo & IAkH of FlyerTalk.com
  http://www.flyertalk.com/forum/members/paul21.html
- Includes contriutions by 18sas
+ Includes contributions by 18sas
  Copyright Reserved -- At least share with credit if you do
 *********** Latest Changes **************
 **** TheStatusAddict Version 0.1 ****
@@ -3734,10 +3734,10 @@ function printFlightcreditcalculator() {
 
     var container;
     if (mptUsersettings["enableInlinemode"]==1){
-        printUrlInline('javascript: void(0);', 'wheretocredit.com', '', 1, extra);
+        printUrlInline('javascript: void(0);', 'tbftechnologies.com', '', 1, extra);
         container = getSidebarContainer(1);
     } else {
-        printUrl('javascript: void(0);', 'wheretocredit.com', '', extra);
+        printUrl('javascript: void(0);', 'tbftechnologies.com', '', extra);
         container = document.getElementById('powertoolslinkcontainer');
     }
 
