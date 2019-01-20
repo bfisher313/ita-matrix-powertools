@@ -2,7 +2,7 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.008
+// @version 0.50.1.009
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -16,7 +16,7 @@
  Includes contributions by 18sas
  Copyright Reserved -- At least share with credit if you do
 *********** Latest Changes **************
-**** TheStatusAddict Version 0.1 ****
+**** TheStatusAddict Version 0.50 ****
 # 2019-01-19 - Piggybacking on all of the awesome work done by the original creators of this
 #              script and all of the other contributors to utilize credit calculation service that I am developing
 #              that is intended to offer more robust support for Elite Qualifying points/miles.
@@ -3673,24 +3673,26 @@ function openFlightcreditcalculator(link) {
     for (var i = 0; i < currentItin.itin.length; i++) {
         for (var j = 0; j < currentItin.itin[i].seg.length; j++) {
             itin.segments.push({
-                origin: currentItin.itin[i].seg[j].orig,
-                destination: currentItin.itin[i].seg[j].dest,
-                departure: new Date(currentItin.itin[i].seg[j].dep.year, currentItin.itin[i].seg[j].dep.month, currentItin.itin[i].seg[j].dep.day),
-                carrier: currentItin.itin[i].seg[j].carrier,
-                bookingClass: currentItin.itin[i].seg[j].bookingclass,
-                codeshare: currentItin.itin[i].seg[j].codeshare,
+                originAirportCode: currentItin.itin[i].seg[j].orig,
+                destinationAirportCode: currentItin.itin[i].seg[j].dest,
+                departureTimestamp: currentItin.itin[i].seg[j].dep,
+                arrivalTimestamp: currentItin.itin[i].seg[j].arr,
+                marketingCarrierCode: currentItin.itin[i].seg[j].carrier,
+                operatingCarrierCode: currentItin.itin[i].seg[j].carrier,
+                fareCode: currentItin.itin[i].seg[j].bookingclass,
+                //codeshare: currentItin.itin[i].seg[j].codeshare,
                 flightNumber: currentItin.itin[i].seg[j].fnr,
             });
         }
     }
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', '//www.wheretocredit.com/api/beta/calculate');
+    xhr.open('POST', '//localhost:8081/flightcreditcalculatorbizlogicdev/creditCalculator');
     xhr.setRequestHeader('Accept', 'application/json;charset=UTF-8');
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
-            link.href = '//www.wheretocredit.com';
+            link.href = '//www.tbftechnologies.com';
             link.target = '_blank';
             link.innerHTML = 'Data provided by FlightCreditCalculator';
 
