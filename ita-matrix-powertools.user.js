@@ -2,7 +2,7 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.032
+// @version 0.50.1.033
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -3720,19 +3720,11 @@ function openFlightcreditcalculator(link) {
                 }
 
                 if (response.status === 200 && data) {
-                    data.value[0].value.totals.sort(function (a, b) {
-                        if (a.value === b.value) {
-                            return +(a.name > b.name) || +(a.name === b.name) - 1;
-                        }
-                        return b.value - a.value; // desc
-                    });
 
                     result = document.createElement("div");
-                    temp = data.value[0].value.totals.map(function (seg, i) {
-                        return parseInt(seg.value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ' + seg.name + ' miles';
-                    });
-                    for (var i = 0; i < temp.length; i++) {
-                        result.appendChild(document.createTextNode(temp[i]));
+
+                    for (var i = 0; i < data.length; i++) {
+                        result.appendChild(document.createTextNode(data[i].itineraryId));
                         result.appendChild(document.createElement("br"));
                     }
                     result.removeChild(result.lastChild);
