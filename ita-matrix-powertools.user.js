@@ -2,7 +2,7 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.025
+// @version 0.50.1.026
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -3706,17 +3706,16 @@ function openFlightcreditcalculator(link) {
             "Accept": "application/json;charset=UTF-8",
             "Content-Type": "application/json;charset=UTF-8"
         },
-        onreadystatechange: function() {
-            if (readyState === 4) {
+        onload: function(response) {
                 link.href = 'http://www.tbftechnologies.com';
                 link.target = '_blank';
                 link.innerHTML = 'Data provided by FlightCreditCalculator';
 
                 var data, result, temp;
                 try {
-                    data = JSON.parse(xhr.responseText);
+                    data = JSON.parse(response);
                 } catch (e) {
-                    data = xhr.responseText;
+                    data = response;
                 }
 
                 if (xhr.status === 200 && data && data.success && data.value && data.value.length && data.value[0].success) {
@@ -3743,7 +3742,7 @@ function openFlightcreditcalculator(link) {
                 container.innerHTML ="";
                 container.appendChild(result);
             }
-        }
+
     });
 }
 
