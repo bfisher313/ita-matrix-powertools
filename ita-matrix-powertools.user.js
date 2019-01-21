@@ -2,7 +2,7 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.026
+// @version 0.50.1.027
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -3706,7 +3706,8 @@ function openFlightcreditcalculator(link) {
             "Accept": "application/json;charset=UTF-8",
             "Content-Type": "application/json;charset=UTF-8"
         },
-        onload: function(response) {
+        onload: function (response) {
+            if (response.readyState === 4) {
                 link.href = 'http://www.tbftechnologies.com';
                 link.target = '_blank';
                 link.innerHTML = 'Data provided by FlightCreditCalculator';
@@ -3718,7 +3719,7 @@ function openFlightcreditcalculator(link) {
                     data = response;
                 }
 
-                if (xhr.status === 200 && data && data.success && data.value && data.value.length && data.value[0].success) {
+                if (response.statusCode === 200 && data && data.success && data.value && data.value.length && data.value[0].success) {
                     data.value[0].value.totals.sort(function (a, b) {
                         if (a.value === b.value) {
                             return +(a.name > b.name) || +(a.name === b.name) - 1;
@@ -3727,22 +3728,23 @@ function openFlightcreditcalculator(link) {
                     });
 
                     result = document.createElement("div");
-                    temp = data.value[0].value.totals.map(function (seg, i) { return parseInt(seg.value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ' + seg.name + ' miles'; });
-                    for (var i = 0 ; i<temp.length;i++){
+                    temp = data.value[0].value.totals.map(function (seg, i) {
+                        return parseInt(seg.value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ' + seg.name + ' miles';
+                    });
+                    for (var i = 0; i < temp.length; i++) {
                         result.appendChild(document.createTextNode(temp[i]));
                         result.appendChild(document.createElement("br"));
                     }
                     result.removeChild(result.lastChild);
-                }
-                else {
+                } else {
                     result = data.errorMessage || data || 'API quota exceeded :-/';
                     result = document.createTextNode(result);
                 }
                 container.style.display = 'block';
-                container.innerHTML ="";
+                container.innerHTML = "";
                 container.appendChild(result);
             }
-
+        }
     });
 }
 
