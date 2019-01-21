@@ -2,7 +2,7 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.012
+// @version 0.50.1.013
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -3688,9 +3688,9 @@ function openFlightcreditcalculator(link) {
 
     var xhr = new XMLHttpRequest();
     //BPTEST - Watch out for this workaround, must have HTTPS enabled before any sort of production version can work
-    xhr.open('POST', 'http://127.0.0.1:8081/flightcreditcalculatorbizlogicdev/creditCalculator');
+    xhr.open('POST', 'http://localhost:8081/flightcreditcalculatorbizlogicdev/creditCalculator');
     //BPFTEST - Short circuiting the HTTPS requirement here. Must not implement in production
-    xhr.withCredentials = true;
+    xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://matrix.itasoftware.com')
     xhr.setRequestHeader('Accept', 'application/json;charset=UTF-8');
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     xhr.onreadystatechange = function() {
