@@ -2,14 +2,13 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.016
+// @version 0.50.1.017
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
 // @grant GM.setValue
 // @grant GM_setValue
-// @grant GM.xmlhttpRequest
-// @grant GM_xmlhttpRequest
+// @grant GM.xmlHttpRequest
 // @include http*://matrix.itasoftware.com/*
 // ==/UserScript==
 /*
@@ -3688,53 +3687,53 @@ function openFlightcreditcalculator(link) {
         }
     }
 
-    //var xhr = new XMLHttpRequest();
-    var xhr = new GM_xmlhttpRequest();
-    //BPTEST - Watch out for this workaround, must have HTTPS enabled before any sort of production version can work
-    xhr.open('POST', 'http://localhost:8081/flightcreditcalculatorbizlogicdev/creditCalculator');
-    //BPFTEST - Short circuiting the HTTPS requirement here. Must not implement in production
-    //xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://matrix.itasoftware.com')
-    xhr.setRequestHeader('Accept', 'application/json;charset=UTF-8');
-    xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-            link.href = 'http://www.tbftechnologies.com';
-            link.target = '_blank';
-            link.innerHTML = 'Data provided by FlightCreditCalculator';
+    GM.xmlHttpRequest({
+        method: "POST",
+        url: "http://localhost:8081/flightcreditcalculatorbizlogicdev/creditCalculator",
+        data: JSON.stringify([itin]),
+        headers: {
+            "Accept": "application/json;charset=UTF-8",
+            "Content-Type": "application/json;charset=UTF-8"
+        },
+        onreadystatechange: function() {
+            if (GM.readyState === 4) {
+                link.href = 'http://www.tbftechnologies.com';
+                link.target = '_blank';
+                link.innerHTML = 'Data provided by FlightCreditCalculator';
 
-            var data, result, temp;
-            try {
-                data = JSON.parse(xhr.responseText);
-            } catch (e) {
-                data = xhr.responseText;
-            }
-
-            if (xhr.status === 200 && data && data.success && data.value && data.value.length && data.value[0].success) {
-                data.value[0].value.totals.sort(function (a, b) {
-                    if (a.value === b.value) {
-                        return +(a.name > b.name) || +(a.name === b.name) - 1;
-                    }
-                    return b.value - a.value; // desc
-                });
-
-                result = document.createElement("div");
-                temp = data.value[0].value.totals.map(function (seg, i) { return parseInt(seg.value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ' + seg.name + ' miles'; });
-                for (var i = 0 ; i<temp.length;i++){
-                    result.appendChild(document.createTextNode(temp[i]));
-                    result.appendChild(document.createElement("br"));
+                var data, result, temp;
+                try {
+                    data = JSON.parse(xhr.responseText);
+                } catch (e) {
+                    data = xhr.responseText;
                 }
-                result.removeChild(result.lastChild);
+
+                if (xhr.status === 200 && data && data.success && data.value && data.value.length && data.value[0].success) {
+                    data.value[0].value.totals.sort(function (a, b) {
+                        if (a.value === b.value) {
+                            return +(a.name > b.name) || +(a.name === b.name) - 1;
+                        }
+                        return b.value - a.value; // desc
+                    });
+
+                    result = document.createElement("div");
+                    temp = data.value[0].value.totals.map(function (seg, i) { return parseInt(seg.value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ' + seg.name + ' miles'; });
+                    for (var i = 0 ; i<temp.length;i++){
+                        result.appendChild(document.createTextNode(temp[i]));
+                        result.appendChild(document.createElement("br"));
+                    }
+                    result.removeChild(result.lastChild);
+                }
+                else {
+                    result = data.errorMessage || data || 'API quota exceeded :-/';
+                    result = document.createTextNode(result);
+                }
+                container.style.display = 'block';
+                container.innerHTML ="";
+                container.appendChild(result);
             }
-            else {
-                result = data.errorMessage || data || 'API quota exceeded :-/';
-                result = document.createTextNode(result);
-            }
-            container.style.display = 'block';
-            container.innerHTML ="";
-            container.appendChild(result);
         }
-    };
-    xhr.send(JSON.stringify([itin]));
+    });
 }
 
 function printFlightcreditcalculator() {
