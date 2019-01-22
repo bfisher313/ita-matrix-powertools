@@ -2,7 +2,7 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.036
+// @version 0.50.1.037
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -3784,6 +3784,7 @@ function printFlightCreditCalculatorResults(data) {
     var target=findtarget(classSettings["resultpage"]["htbLeft"],t);
     var count=0;
     var output = "";
+    var cur="";
     if (target!=undefined){
         do {
             var type = target.firstChild.firstChild.nodeType;
