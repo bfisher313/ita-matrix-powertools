@@ -2,7 +2,7 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.035
+// @version 0.50.1.036
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -3735,6 +3735,9 @@ function openFlightcreditcalculator(link) {
                 container.style.display = 'block';
                 container.innerHTML = "";
                 container.appendChild(result);
+
+                //BPFTEST - This will replace all of the above if it works
+                printFlightCreditCalculatorResults(data);
             }
         }
     });
@@ -3773,6 +3776,52 @@ function bindFlightcreditcalculator(){
             }
         }
     }
+}
+
+function printFlightCreditCalculatorResults(data) {
+    //BPFTEST - This version of the print is to see what we can put in where the Price Breakdown occurs - ideally, immediately below it
+    var t=1;
+    var target=findtarget(classSettings["resultpage"]["htbLeft"],t);
+    var count=0;
+    var output = "";
+    if (target!=undefined){
+        do {
+            var type = target.firstChild.firstChild.nodeType;
+            if (type == 1) {
+                basefound=1;
+                //it's a basefare
+                var price = Number(target.nextSibling.firstChild.innerHTML.replace(/[^\d]/gi, ""));
+                if (cur=="") cur=target.nextSibling.firstChild.innerHTML.replace(/[\d,.]/g, "");
+                basefares+=price;
+            } else if(basefound==1 && type == 3) {
+                //its a pricenode
+                var name  = target.firstChild.innerHTML;
+                var price = Number(target.nextSibling.firstChild.innerHTML.replace(/[^\d]/gi, ""));
+                if( hasClass(target.nextSibling, classSettings["resultpage"]["htbGreyBorder"]) == 1) {
+
+                    output +='<table style="float:left; margin-right:15px;"><tbody>';
+                    output +='<tr><td colspan=3 style="text-align:center;">Itinerary UUID: '+ data[count].itineraryId +':</td></tr>';
+                    output +="</tbody></table>";
+                    count++;
+
+
+
+
+                }
+            }
+            t++;
+            target=findtarget(classSettings["resultpage"]["htbLeft"],t);
+        }
+        while (target!=undefined);
+    }
+    if (mptUsersettings["enableInlinemode"] == 0){
+        var printtarget=findtarget(classSettings["resultpage"]["htbContainer"],1).parentNode.parentNode.parentNode;
+        var newtr = document.createElement('tr');
+        newtr.setAttribute('class','pricebreakdown');
+        newtr.innerHTML = '<td><div>'+output+'</div></td>';
+        printtarget.parentNode.insertBefore(newtr, printtarget);
+    }
+//BPFTEST END
 }
 //BPFTEST - End flightcreditcalculator
 
