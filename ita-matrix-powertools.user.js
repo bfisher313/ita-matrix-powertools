@@ -2,7 +2,7 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.039
+// @version 0.50.1.040
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -3800,15 +3800,23 @@ function printFlightCreditCalculatorResults(data) {
                 var name  = target.firstChild.innerHTML;
                 var price = Number(target.nextSibling.firstChild.innerHTML.replace(/[^\d]/gi, ""));
                 if( hasClass(target.nextSibling, classSettings["resultpage"]["htbGreyBorder"]) == 1) {
-
-                    output +='<table style="float:left; margin-right:15px;"><tbody>';
-                    output +='<tr><td colspan=3 style="text-align:center;">Itinerary UUID: '+ data[count].itineraryId +':</td></tr>';
-                    output +="</tbody></table>";
-                    count++;
-
-
-
-
+                    var creditOptions = data[count].creditOptions;
+                    for (var i = 0; i < data[count].creditOptions.length; i++) {
+                        var creditOption = creditOptions[i];
+                        output += '<table style="float:left; margin-right:15px;"><tbody>';
+                        output += '<tr><td colspan="2" style="text-align: center; border: 1px solid black;">' + creditOption.earningAirlineName + '</td>';
+                        output += '<td colspan="2" style="text-align: center; border: 1px solid black;">Actual Miles Flown: ' + creditOption.actualMilesFlown + '</td>';
+                        output += '<tr><td style="text-align: center; border: 1px solid black;">' + creditOption.eliteQualfyingPointsLabel + '</td>';
+                        output += '<td style="text-align: center; border: 1px solid black;">CPEQP</td>';
+                        output += '<td style="text-align: center; border: 1px solid black;">' + creditOption.redeemablePointsLabel + '</td>';
+                        output += '<td style="text-align: center; border: 1px solid black;">CPRDM</td></tr>';
+                        output += '<tr><td style="text-align: center; border: 1px solid black;">' + creditOption.eliteQualfyingPoints + '</td>';
+                        output += '<td style="text-align: center; border: 1px solid black;">' + creditOption.costPerEliteQualifyingPoint + '</td>';
+                        output += '<td style="text-align: center; border: 1px solid black;">' + creditOption.redeemablePoints + '</td>';
+                        output += '<td style="text-align: center; border: 1px solid black;">' + creditOption.costPerRedeemablePoint + '</td></tr>';
+                        output += "</tbody></table>";
+                    }
+                count++;
                 }
             }
             t++;
