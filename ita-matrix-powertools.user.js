@@ -3811,7 +3811,7 @@ function printFlightCreditCalculatorResults(data) {
                         output += '<td style="text-align: center; border: 1px solid black;">' + creditOption.redeemablePointsLabel + '</td>';
                         output += '<td style="text-align: center; border: 1px solid black;">CPRDM</td></tr>';
                         output += '<tr><td style="text-align: center; border: 1px solid black;">' + creditOption.eliteQualifyingPoints + '</td>';
-                        output += '<td style="text-align: center; border: 1px solid black;">' + creditOption.costPerEliteQualfiyingPoint + '</td>';
+                        output += '<td style="text-align: center; border: 1px solid black;">' + creditOption.costPerEliteQualifyingPoint + '</td>';
                         output += '<td style="text-align: center; border: 1px solid black;">' + creditOption.redeemablePoints + '</td>';
                         output += '<td style="text-align: center; border: 1px solid black;">' + creditOption.costPerRedeemablePoint + '</td></tr>';
                         output += "</tbody></table>";
