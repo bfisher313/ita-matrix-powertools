@@ -23,7 +23,7 @@
 #              that is intended to offer more robust support for Elite Qualifying points/miles.
 #              Elite qualfying is used in the generic sense, not in the AA specific vernacular.
 #              All major airlines/alliances are intended to be supported.
-#              All suggestions and code fixes/improvements welcome, as javascript is NOT my specialty, the underlying REST Service is.
+#              All suggestions and code fixes/improvements welcome, as javascript is NOT my specialty, the underlying REST Service is.d
 #              Feature/Calculation requests welcome as well.
 **** Version 0.28 ****
 # 2018-01-04 Edited by powerivq (Fix DL/AA and add AS/VX support)
@@ -3679,14 +3679,16 @@ function openFlightcreditcalculator(link) {
             itin.segments.push({
                 originAirportCode: currentItin.itin[i].seg[j].orig,
                 destinationAirportCode: currentItin.itin[i].seg[j].dest,
-                departureDateTime: currentItin["itin"][i]["seg"][j]["dep"]["year"]+"-"+
-                    ("0"+currentItin["itin"][i]["seg"][j]["dep"]["month"]).slice(-2)+"-"+
-                    ("0"+currentItin["itin"][i]["seg"][j]["dep"]["day"]).slice(-2)+"T"+
-                    ("00"+currentItin["itin"][i]["seg"][j]["dep"]["time"]).slice(-5),
-                arrivalDateTime: currentItin["itin"][i]["seg"][j]["arr"]["year"]+"-"+
-                    ("0"+currentItin["itin"][i]["seg"][j]["arr"]["month"]).slice(-2)+"-"+
-                    ("0"+currentItin["itin"][i]["seg"][j]["arr"]["day"]).slice(-2)+"T"+
-                    ("00"+currentItin["itin"][i]["seg"][j]["arr"]["time"]).slice(-5),
+                departureTimestamp: Date.parse(currentItin['itin'][i]['seg'][j]['dep']['year']+'-'+
+                    ('0'+currentItin['itin'][i]['seg'][j]['dep']['month']).slice(-2)+'-'+
+                    ('0'+currentItin['itin'][i]['seg'][j]['dep']['day']).slice(-2)+
+                    'T'+('0'+currentItin['itin'][i]['seg'][j]['dep']['time']).slice(-5)+":00"+
+                    (typeof(currentItin['itin'][i]['seg'][j]['dep']['offset'])==="undefined" ? "+00:00" : currentItin['itin'][i]['seg'][j]['dep']['offset'])),
+                arrivalTimestamp: Date.parse(currentItin['itin'][i]['seg'][j]['arr']['year']+'-'+
+                    ('0'+currentItin['itin'][i]['seg'][j]['arr']['month']).slice(-2)+'-'+
+                    ('0'+currentItin['itin'][i]['seg'][j]['arr']['day']).slice(-2)+
+                    'T'+('0'+currentItin['itin'][i]['seg'][j]['arr']['time']).slice(-5)+":00"+
+                    (typeof(currentItin['itin'][i]['seg'][j]['arr']['offset'])==="undefined" ? "+00:00" : currentItin['itin'][i]['seg'][j]['arr']['offset'])),
                 marketingCarrierCode: currentItin.itin[i].seg[j].carrier,
                 operatingCarrierCode: currentItin.itin[i].seg[j].carrier,
                 fareCode: currentItin.itin[i].seg[j].bookingclass,
