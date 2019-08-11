@@ -3808,10 +3808,14 @@ function printFlightCreditCalculatorResults(data) {
                         output += '<td style="text-align: center;">CPEQP</td>';
                         output += '<td style="text-align: center;">' + creditOption.redeemablePointsLabel + '</td>';
                         output += '<td style="text-align: center;">CPRDM</td></tr>';
+                        output += '<td style="text-align: center;">' + creditOption.eliteQualifyingDollarsLabel + '</td>';
+                        output += '<td style="text-align: center;">CPEQD</td></tr>';
                         output += '<tr><td style="text-align: center;">' + creditOption.eliteQualifyingPoints + '</td>';
                         output += '<td style="text-align: center;">' + creditOption.costPerEliteQualifyingPoint + '</td>';
                         output += '<td style="text-align: center;">' + creditOption.redeemablePoints + '</td>';
                         output += '<td style="text-align: center;">' + creditOption.costPerRedeemablePoint + '</td></tr>';
+                        output += '<td style="text-align: center;">' + creditOption.eliteQualifyingDollars + '</td>';
+                        output += '<td style="text-align: center;">' + creditOption.costPerEliteQualifyingDollar + '</td></tr>';
                         output += "</tbody></table>";
                     }
                 count++;
