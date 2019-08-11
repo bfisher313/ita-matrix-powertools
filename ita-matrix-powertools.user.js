@@ -2,7 +2,7 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.53
+// @version 0.50.1.54
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -3802,8 +3802,8 @@ function printFlightCreditCalculatorResults(data) {
                     for (var i = 0; i < data[count].creditOptions.length; i++) {
                         var creditOption = creditOptions[i];
                         output += '<table style="float:left; margin-right:15px; border: 1px solid black" width="100%" border=".5"> <tbody>';
-                        output += '<tr><td colspan="2" style="text-align: center;">' + creditOption.earningAirlineName + '</td>';
-                        output += '<td colspan="2" style="text-align: center;">Actual Miles Flown: ' + creditOption.actualMilesFlown + '</td>';
+                        output += '<tr><td colspan="3" style="text-align: center;">' + creditOption.earningAirlineName + '</td>';
+                        output += '<td colspan="3" style="text-align: center;">Actual Miles Flown: ' + creditOption.actualMilesFlown + '</td></tr>';
                         output += '<tr><td style="text-align: center;">' + creditOption.eliteQualifyingPointsLabel + '</td>';
                         output += '<td style="text-align: center;">CPEQP</td>';
                         output += '<td style="text-align: center;">' + creditOption.redeemablePointsLabel + '</td>';
