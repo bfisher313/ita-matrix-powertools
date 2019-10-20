@@ -23,7 +23,7 @@
 #              that is intended to offer more robust support for Elite Qualifying points/miles.
 #              Elite qualfying is used in the generic sense, not in the AA specific vernacular.
 #              All major airlines/alliances are intended to be supported.
-#              All suggestions and code fixes/improvements welcome, as javascript is NOT my specialty, the underlying REST Service is.d
+#              All suggestions and code fixes/improvements welcome, as javascript is NOT my specialty, the underlying REST Service is.
 #              Feature/Calculation requests welcome as well.
 **** Version 0.28 ****
 # 2018-01-04 Edited by powerivq (Fix DL/AA and add AS/VX support)
