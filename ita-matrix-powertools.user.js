@@ -2,7 +2,7 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.61
+// @version 0.50.1.62
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -3679,7 +3679,7 @@ function openFlightcreditcalculator(link) {
             itin.segments.push({
                 originAirportCode: currentItin.itin[i].seg[j].orig,
                 destinationAirportCode: currentItin.itin[i].seg[j].dest,
-                departureTimestamp: Date.parse(currentItin['itin'][i]['seg'][j]['dep']['year']+'-'+
+                departureDateTime: Date.parse(currentItin['itin'][i]['seg'][j]['dep']['year']+'-'+
                     ('0'+currentItin['itin'][i]['seg'][j]['dep']['month']).slice(-2)+'-'+
                     ('0'+currentItin['itin'][i]['seg'][j]['dep']['day']).slice(-2)+
                     'T'+('0'+currentItin['itin'][i]['seg'][j]['dep']['time']).slice(-5)+":00"+
