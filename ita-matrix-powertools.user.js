@@ -2,7 +2,7 @@
 // @name ITA-Matrix-Powertools
 // @namespace https://github.com/bfisher313/ita-matrix-powertools
 // @description Adds new features and builds fare purchase links for ITA Matrix
-// @version 0.50.1.63
+// @version 0.50.1.64
 // @require https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js
 // @grant GM.getValue
 // @grant GM_setValue
@@ -3679,16 +3679,14 @@ function openFlightcreditcalculator(link) {
             itin.segments.push({
                 originAirportCode: currentItin.itin[i].seg[j].orig,
                 destinationAirportCode: currentItin.itin[i].seg[j].dest,
-                departureDateTime: Date.parse(currentItin['itin'][i]['seg'][j]['dep']['year']+'-'+
-                    ('0'+currentItin['itin'][i]['seg'][j]['dep']['month']).slice(-2)+'-'+
-                    ('0'+currentItin['itin'][i]['seg'][j]['dep']['day']).slice(-2)+
-                    'T'+('0'+currentItin['itin'][i]['seg'][j]['dep']['time']).slice(-5)+":00"+
-                    (typeof(currentItin['itin'][i]['seg'][j]['dep']['offset'])==="undefined" ? "+00:00" : currentItin['itin'][i]['seg'][j]['dep']['offset'])),
-                arrivalDateTime: Date.parse(currentItin['itin'][i]['seg'][j]['arr']['year']+'-'+
-                    ('0'+currentItin['itin'][i]['seg'][j]['arr']['month']).slice(-2)+'-'+
-                    ('0'+currentItin['itin'][i]['seg'][j]['arr']['day']).slice(-2)+
-                    'T'+('0'+currentItin['itin'][i]['seg'][j]['arr']['time']).slice(-5)+":00"+
-                    (typeof(currentItin['itin'][i]['seg'][j]['arr']['offset'])==="undefined" ? "+00:00" : currentItin['itin'][i]['seg'][j]['arr']['offset'])),
+                departureDateTime: currentItin["itin"][i]["seg"][j]["dep"]["year"]+"-"+
+                    ("0"+currentItin["itin"][i]["seg"][j]["dep"]["month"]).slice(-2)+"-"+
+                    ("0"+currentItin["itin"][i]["seg"][j]["dep"]["day"]).slice(-2)+"T"+
+                    ("00"+currentItin["itin"][i]["seg"][j]["dep"]["time"]).slice(-5),
+                arrivalDateTime: currentItin["itin"][i]["seg"][j]["arr"]["year"]+"-"+
+                    ("0"+currentItin["itin"][i]["seg"][j]["arr"]["month"]).slice(-2)+"-"+
+                    ("0"+currentItin["itin"][i]["seg"][j]["arr"]["day"]).slice(-2)+"T"+
+                    ("00"+currentItin["itin"][i]["seg"][j]["arr"]["time"]).slice(-5),
                 marketingCarrierCode: currentItin.itin[i].seg[j].carrier,
                 operatingCarrierCode: currentItin.itin[i].seg[j].carrier,
                 fareCode: currentItin.itin[i].seg[j].bookingclass,
